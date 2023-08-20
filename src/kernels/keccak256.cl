@@ -225,7 +225,7 @@ static inline bool hasLeading(uchar const *d)
 
 static inline bool hasPrefix(uchar const *d)
 {
-  return !d[0] && !d[1] && !d[2] && !d[3] == 0xFC;
+  return !d[0] && !d[1] && !d[2] && !d[3] && d[4] == 0xFC;
 }
 
 __kernel void hashMessage(
