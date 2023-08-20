@@ -223,6 +223,11 @@ static inline bool hasLeading(uchar const *d)
 }
 #endif
 
+static inline bool hasPrefix(uchar const *d)
+{
+  return !d[0] && !d[1] && !d[2] && !d[3] && d[4] == 0xFC;
+}
+
 __kernel void hashMessage(
   __constant uchar const *d_message,
   __constant uint const *d_nonce,
@@ -353,10 +358,7 @@ __kernel void hashMessage(
 
   // determine if the address meets the constraints
   if (
-    hasLeading(digest) 
-#if TOTAL_ZEROES <= 20
-    || hasTotal(digest)
-#endif
+    hasPrefix(digest)
   ) {
     // To be honest, if we are using OpenCL, 
     // we just need to write one solution for all practical purposes,
